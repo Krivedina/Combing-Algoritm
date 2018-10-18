@@ -14,7 +14,7 @@ def get_out(dict_of_final, length):
 
 
 def sort_by_number(a):
-        return int(a[1])
+    return int(a[1])
 
 
 def get_neighbors(string):
@@ -33,7 +33,7 @@ def main():
     with open("in.txt") as f:
         apex_count = f.readline()
         for x in range(int(apex_count)):
-            a = Apex(x+1)
+            a = Apex(x + 1)
             a.neighbors = get_neighbors(f.readline())
             apex_list.append(a)
 
@@ -42,22 +42,28 @@ def main():
     value_list_check = []
     for i in apex_list:
         for k in i.neighbors.keys():
-            dict_of_all[str(i.name) + k] = i.neighbors[k]
+            dict_of_all[str(i.name) + "-" + k] = i.neighbors[k]
     for key, value in sorted(dict_of_all.items(), key=sort_by_number):
-        if value not in value_list_check:
+        q = key.split("-")
+        a = q[0]
+        b = q[1]
+        if str(b + "-" + a) in dict_of_all_sort:
+            continue
+        else:
             dict_of_all_sort[key] = value
             value_list_check.append(value)
 
     dict_of_sets = {}
     for i in range(int(apex_count)):
-        dict_of_sets[i+1] = [apex_list[i].name]
+        dict_of_sets[i + 1] = [apex_list[i].name]
 
     dict_of_answer = {}
     full_length = 0
     for i in dict_of_all_sort:
         distance = int(dict_of_all_sort[i])
-        a = int(i[0])
-        b = int(i[1])
+        qw = i.split("-")
+        a = int(qw[0])
+        b = int(qw[1])
         if dict_of_sets[a] == dict_of_sets[b]:
             continue
         else:
@@ -76,11 +82,12 @@ def main():
         dict_of_answer_2[i] = dict_of_answer[i]
 
     for i in range(int(apex_count)):
-        dict_of_sets[i+1] = []
+        dict_of_sets[i + 1] = []
     for i in dict_of_answer_2:
         distance = dict_of_answer_2[i]
-        a = int(i[0])
-        b = int(i[1])
+        qwe = i.split("-")
+        a = int(qwe[0])
+        b = int(qwe[1])
         dict_of_sets[b].append(a)
         dict_of_sets[b].append(distance)
         dict_of_sets[a].append(b)

@@ -1,0 +1,10 @@
+from cx_Freeze import setup, Executable
+
+setup(
+    name = "new exe ",
+    version = "0.1",
+    description = "about exe",
+    executables = [Executable("what the py-file.py")]
+)
+
+"C:\Program Files\Python36\python.exe" for_exe.py build
